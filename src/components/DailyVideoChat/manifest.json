@@ -1,0 +1,419 @@
+{
+  "displayName": "Daily Video Chat",
+  "defaultWidth": 600,
+  "defaultHeight": 500,
+  "components": "./index.js",
+  "resizeY": true,
+  "resizeX": true,
+  "icon": "./daily-cameraIcon-lightground-180px.png",
+  "helpText": "Configure settings for the video call",
+  "props": [
+    {
+      "name": "apikey",
+      "displayName": "Your Daily API key",
+      "type": "text",
+      "helpText": "Sign up at daily.co for the api key"
+    }
+  ],
+  "childComponents": [
+    {
+      "name": "videoCall",
+      "displayName": "Video Call",
+      "helpText": "Configure the Video call and update the video style",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "url",
+          "displayName": "Room url",
+          "type": "text",
+          "helpText": "The url of the room you want to join"
+        },
+        {
+          "name": "token",
+          "displayName": "Meeting token",
+          "type": "text",
+          "helpText": "Optionally enter a meeting token to configure the video session on a per-user basis."
+        },
+        {
+          "name": "accent",
+          "displayName": "Accent",
+          "type": "color",
+          "default": "#1BEBB9",
+          "helpText": "Main theme color. Used for primary actions and keyboard focus."
+          
+        },
+        {
+          "name": "accentText",
+          "displayName": "Accent text",
+          "type": "color",
+          "default": "#121A24",
+          "helpText": "Text color rendered on accent."
+        },
+        {
+          "name": "background",
+          "displayName": "Background",
+          "type": "color",
+          "default": "#FFFFFF",
+          "helpText": "Background color."
+        },
+        {
+          "name": "backgroundAccent",
+          "displayName": "Background accent",
+          "type": "color",
+          "default": "#EFF3F5",
+          "helpText": "Background color for highlighted elements."
+        },
+        {
+          "name": "baseText",
+          "displayName": "baseText",
+          "default": "#121A24",
+          "type": "color",
+          "helpText": "Default text and icon color, as rendered on background or backgroundAccent."
+        },
+        {
+          "name": "border",
+          "displayName": "Border",
+          "default": "#C8D1DC",
+          "type": "color",
+          "helpText": "Default border color for bordered elements."
+        },
+        {
+          "name": "mainAreaBg",
+          "displayName": "Main area background",
+          "default": "#121A24",
+          "type": "color",
+          "helpText": "Background color for the main call area."
+        },
+        {
+          "name": "mainAreaBgAccent",
+          "displayName": "Main area background accent",
+          "default": "#2B3F56",
+          "type": "color",
+          "helpText": "Background color for video tiles."
+        },
+        {
+          "name": "mainAreaText",
+          "displayName": "Main area text",
+          "default": "#FFFFFF",
+          "type": "color",
+          "helpText": "Text color for text rendered inside the call main area, e.g. names."
+        },
+        {
+          "name": "supportiveText",
+          "displayName": "Supportive text",
+          "default": "#6B7785",
+          "type": "color",
+          "helpText": "Text color for supportive, less emphasized, text."
+        },
+        {
+          "name": "leftMeeting",
+          "displayName": "Actions after participant leaves the meeting",
+          "type": "action"
+        },
+        {
+          "name": "joinedMeeting",
+          "displayName": "Actions after the participant joins the meeting",
+          "type": "action"
+        }
+      ]
+    },
+    {
+      "name": "createRoomButton",
+      "displayName": "Create Room Button",
+      "helpText": "Create a video chat room",
+      "props": [{
+        "name": "enabled",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "privacy",
+				 "displayName": "Privacy",
+        "type": "text",
+        "default": "public",
+				 "helpText": "Determines who can access the room.  Options are public and private"
+      },
+      {
+        "name": "enable_chat",
+				 "displayName": "Enable Chat",
+        "type": "boolean",
+        "default": true,
+				 "helpText": "Determines whether chat is enabled. Options are true and false."
+      },
+        {
+        "name": "owner_only_broadcast",
+				 "displayName": "Owner Only Broadcast",
+        "type": "boolean",
+        "default": false,
+				 "helpText": "Options are true and false. If set to true, only meeting owners are allowed to turn on camera, unmute mic, and share screen. You can configure a meeting owner token with the Create meeting token button."
+      },
+      {
+        "name": "enable_knocking",
+				 "displayName": "Enable Knocking",
+        "type": "boolean",
+        "default": true,
+				 "helpText": "Turns on a lobby experience for private rooms. A participant without a corresponding meeting token can request to be admitted to the meeting with a 'knock', and wait for the meeting owner to admit them. Options are true and false."
+      },
+      {
+        "name": "start_video_off",
+				 "displayName": "Start Video Off",
+        "type": "boolean",
+        "default": false,
+				 "helpText": "When participants first join a meeting, keep their camera off. This property can be overridden by a meeting token."
+      },
+      {
+        "name": "start_audio_off",
+				 "displayName": "Start Audio Off",
+        "type": "boolean",
+        "default": false,
+				 "helpText": "When participants first join a meeting, keep their microphone muted. This property can be overridden by a meeting token."
+      },
+      {
+        "name": "roomCreated",
+        "displayName": "Additional actions after a room is created",
+        "type": "action",
+        "arguments": [
+          {
+            "type": "text",
+							"name": "name",
+            "displayName": "name"
+          },
+          {
+            "type": "text",
+							"name": "roomUrl",
+            "displayName": "room url"
+          },
+						{
+            "type": "text",
+							"name": "id",
+            "displayName": "id"
+          },
+					{
+            "type": "text",
+							"name": "privacy",
+            "displayName": "privacy"
+          },
+						{
+            "type": "boolean",
+						 "name": "enable_chat",
+            "displayName": "enabled chat"
+          },
+					{
+            "type": "boolean",
+						 "name": "owner_only_broadcast",
+            "displayName": "owner only broadcast"
+          },
+						{
+            "type": "boolean",
+						 "name": "start_video_off",
+            "displayName": "start video off"
+          },
+					{
+            "type": "boolean",
+						 "name": "start_audio_off",
+            "displayName": "start audio off"
+          },
+					{
+            "type": "boolean",
+						 "name": "enable_knocking",
+            "displayName": "enabled knocking"
+          }
+        ]
+      }
+      ]
+    },
+    {
+      "name": "createMeetingTokenButton",
+      "displayName": "Create Meeting Token",
+      "helpText": "Create a meeting token",
+      "props": [{
+        "name": "enabled",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "room_name",
+				 "displayName": "Room Name",
+        "type": "text",
+				 "helpText": "The room for which this token is valid."
+      },
+      {
+        "name": "username",
+				 "displayName": "Username",
+        "type": "text",
+				 "helpText": "Optional paramater to set the user's name in this meeting. The name displays in the user interface when the user is muted or has turned off the camera, and in the chat window."
+      },
+      {
+        "name": "is_owner",
+				 "displayName": "Is Owner",
+        "type": "boolean",
+        "default": false,
+				 "helpText": "Determines whether the user has meeting owner privileges. For example, if the room is configured for owner_only_broadcast, this user can send video, and audio, and can screenshare. Options are true and false."
+      },
+      {
+        "name": "start_video_off_t",
+				 "displayName": "Start Video Off",
+        "type": "boolean",
+        "default": false,
+				 "helpText": "When a participant first join a meeting, keep their camera off . Setting this on a meeting token overrides the setting on the room."
+      },
+      {
+        "name": "start_audio_off_t",
+				 "displayName": "Start Audio Off",
+        "type": "boolean",
+        "default": false,
+				 "helpText": "When a participants first join a meeting, keep their microphone muted. Setting this on a meeting token overrides the setting on the room."
+      },
+      {
+        "name": "meeting_token_created",
+        "displayName": "Additional actions after a meeting token is created.",
+        "type": "action",
+        "arguments": [
+          {
+            "type": "text",
+            "displayName": "token"
+          }
+        ]
+      }
+      ]
+    },
+    {
+      "name": "deleteRoomButton",
+      "displayName": "Delete Room Button",
+      "helpText": "Use this button to delete a room.",
+      "props": [{
+        "name": "enabled",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "room_name_d",
+				 "displayName": "Room Name",
+        "type": "text",
+				 "helpText": "The name of the room that will be deleted."
+      },
+      {
+        "name": "room_deleted",
+        "displayName": "Additional actions after a room is deleted.",
+        "type": "action"
+      }
+      ]
+    },
+    {
+      "name": "updateRoomSettingsButton",
+      "displayName": "Update Room Button",
+      "helpText": "Use this button to delete a room from your Daily domain.",
+      "props": [{
+        "name": "enabled",
+        "type": "boolean",
+        "default": false
+        },
+        {
+        "name": "room_name_u",
+				 "displayName": "Room Name",
+        "type": "text",
+				 "helpText": "The name of the room that will be updated."
+        },
+        {
+        "name": "privacy_u",
+				 "displayName": "Privacy",
+        "type": "text",
+        "default": "public",
+				 "helpText": "Determines who can access the room.  Options are public and private."
+        },
+        {
+        "name": "enable_chat_u",
+				 "displayName": "Enable Chat",
+        "type": "boolean",
+        "default": true,
+				 "helpText": "Determines whether chat is enabled. Options are true and false."
+        },
+        {
+        "name": "owner_only_broadcast_u",
+				 "displayName": "Owner Only Broadcast",
+        "type": "boolean",
+        "default": false,
+				 "helpText": "Options are true and false. If set to true, only meeting owners are allowed to turn on camera, unmute mic, and share screen. You can configure a meeting owner token with the Create meeting token button."
+        },
+        {
+        "name": "enable_knocking_u",
+				 "displayName": "Enable Knocking",
+        "type": "boolean",
+        "default": true,
+				 "helpText": "Turns on a lobby experience for private rooms. A participant without a corresponding meeting token can request to be admitted to the meeting with a 'knock', and wait for the meeting owner to admit them. Options are true and false."
+        },
+        {
+        "name": "start_video_off_u",
+				 "displayName": "Start Video Off",
+        "type": "boolean",
+        "default": false,
+				 "helpText": "When participants first join a meeting, keep their camera off . This property can be overridden by a meeting token."
+        },
+        {
+        "name": "start_audio_off_u",
+				 "displayName": "Start Audio Off",
+        "type": "boolean",
+        "default": false,
+				 "helpText": "When participants first join a meeting, keep their microphone muted. This property can be overridden by a meeting token."
+        },
+        {
+        "name": "roomUpdated",
+        "displayName": "Additional actions after a room is updated.",
+        "type": "action",
+       "arguments": [
+        {
+          "type": "text",
+            "name": "name",
+          "displayName": "name"
+        },
+        {
+          "type": "text",
+            "name": "roomUrl",
+          "displayName": "room url"
+        },
+          {
+          "type": "text",
+            "name": "id",
+          "displayName": "id"
+        },
+        {
+          "type": "text",
+            "name": "privacy",
+          "displayName": "privacy"
+        },
+          {
+          "type": "boolean",
+           "name": "enable_chat",
+          "displayName": "enabled chat"
+        },
+        {
+          "type": "boolean",
+           "name": "owner_only_broadcast",
+          "displayName": "owner only broadcast"
+        },
+          {
+          "type": "boolean",
+           "name": "start_video_off",
+          "displayName": "Start Video Off"
+        },
+        {
+          "type": "boolean",
+           "name": "start_audio_off",
+          "displayName": "Start Audio Off"
+        },
+        {
+          "type": "boolean",
+           "name": "enable_knocking",
+          "displayName": "Enabled Knocking"
+        }
+       ]
+      }
+    ]
+  }
+  ]
+}
+    

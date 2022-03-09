@@ -1,0 +1,18 @@
+export default function JoinCall(){
+	useEffect(() => {
+				const callFrame = DailyIframe.createFrame({
+						showLeaveButton: true,
+						iframeStyle: {
+								position: "fixed",
+								width: "100%",
+								height: "100%",
+						},
+				});
+				callFrame.join({
+						url: 'https://lunchpaillabs.daily.co/ggBxShacTii4tzpqtlDA',
+						showLeaveButton: true,
+						activeSpeakerMode: false,
+						
+				});
+}, [])};
+
