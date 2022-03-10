@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {View,Text,TouchableOpacity,StyleSheet } from 'react-native';
 import DailyIframe from "@daily-co/daily-js";
-import videoImage from "./example-thumbnail.png";
+import videoImage from "./editor-image.png";
 
 
 const DailyVideoChat = (props) => {
@@ -35,7 +35,8 @@ const DailyVideoChat = (props) => {
 
 		//createRoomButton props
 		const {
-		privacy, 
+		privacy,
+		enable_prejoin_ui,
 		enable_chat,
 		owner_only_broadcast,
 		enable_knocking,
@@ -89,7 +90,7 @@ const DailyVideoChat = (props) => {
 		body: JSON.stringify({properties: {
 			enable_network_ui: false,
 			enable_new_call_ui: true,
-			enable_prejoin_ui: true,
+			enable_prejoin_ui: enable_prejoin_ui,
 			enable_screenshare: false,
 			enable_chat: enable_chat,
 			owner_only_broadcast: owner_only_broadcast,
@@ -272,7 +273,7 @@ const DailyVideoChat = (props) => {
 				<View style={{ width: '100%', height: '100%' }}>
 					<img
             src={videoImage}
-            style={{ display: videoCall.enabled ? "block" : "none", objectFit: 'cover', width: '100%', height: '100%' }}
+            style={{ display: videoCall.enabled ? "block" : "none", objectFit: 'fill', width: '100%', height: '100%', padding: 0 }}
           />
 										<div style={{display: createRoomButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button}><Text style={styles.text}>Create Room</Text></TouchableOpacity></div>
 										<div style={{display: deleteRoomButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button}><Text style={styles.text}>Delete Room</Text></TouchableOpacity></div>
@@ -285,7 +286,7 @@ const DailyVideoChat = (props) => {
 	if (!editor) {
 	return(
 		 <View style={styles.container}>
-        <div class="daily-call-element" style={{ display: videoCall.enabled ? "block" : "none", width: '100%', height: '100%'}}> {JoinCall()} </div> 
+        <div class="daily-call-element" style={{ display: videoCall.enabled ? "block" : "none", width: '100%', height: '100%', padding: 0}}> {JoinCall()} </div> 
 							<div style={{display: createRoomButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button} onPress={createRoomAction}><Text style={styles.text}>Create Room</Text></TouchableOpacity></div>	
 							<div style={{display: deleteRoomButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button} onPress={deleteRoomAction}><Text style={styles.text}>Delete Room</Text></TouchableOpacity></div>
 							<div style={{display: updateRoomSettingsButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button} onPress={updateRoomAction}><Text style={styles.text}>Update Room</Text></TouchableOpacity></div>

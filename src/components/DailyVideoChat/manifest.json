@@ -1,11 +1,11 @@
 {
   "displayName": "Daily Video Chat",
   "defaultWidth": 600,
-  "defaultHeight": 500,
+  "defaultHeight": 600,
   "components": "./index.js",
   "resizeY": true,
   "resizeX": true,
-  "icon": "./daily-cameraIcon-lightground-180px.png",
+  "icon": "./video-thumbnail.png",
   "helpText": "Configure settings for the video call",
   "props": [
     {
@@ -24,7 +24,7 @@
         {
           "name": "enabled",
           "type": "boolean",
-          "default": false
+          "default": true
         },
         {
           "name": "url",
@@ -136,6 +136,13 @@
         "type": "text",
         "default": "public",
 				 "helpText": "Determines who can access the room.  Options are public and private"
+      },
+      {
+        "name": "enable_prejoin_ui",
+				 "displayName": "Enable Prejoin UI",
+        "type": "boolean",
+        "default": true,
+				 "helpText": "Determines whether participants enter a waiting room with a camera, mic, and browser check before joining a call. Options are true and false."
       },
       {
         "name": "enable_chat",
