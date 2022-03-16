@@ -39,9 +39,15 @@ const DailyVideoChat = (props) => {
 		enable_prejoin_ui,
 		enable_chat,
 		owner_only_broadcast,
+		exp,
+		nbf,
 		enable_knocking,
 		start_video_off,
 		start_audio_off,
+		createText,
+		createBackgroundColor,
+		createBorderColor,
+		createRounding,
 		roomCreated} = createRoomButton;
 
 		//createMeetingTokenButton props
@@ -52,11 +58,19 @@ const DailyVideoChat = (props) => {
 			is_owner,
 			start_video_off_t,
 			start_audio_off_t,
+			tokenText,
+			tokenBackgroundColor,
+			tokenBorderColor,
+			tokenRounding,
 			meeting_token_created} = createMeetingTokenButton;
 
 	//deleteRoomButton props
 	const {
 		room_name_d,
+		deleteText,
+		deleteBackgroundColor,
+		deleteBorderColor,
+		deleteRounding,
 		room_deleted,
 	} = deleteRoomButton;
 
@@ -66,11 +80,79 @@ const DailyVideoChat = (props) => {
 		privacy_u,
 		enable_chat_u,
 		owner_only_broadcast_u,
+		exp_u,
+		nbf_u,
 		enable_knocking_u,
 		start_video_off_u,
 		start_audio_off_u,
+		updateText,
+		updateBackgroundColor,
+		updateBorderColor,
+		updateRounding,
 		roomUpdated
 	} = updateRoomSettingsButton;
+
+	//Converting time to js
+
+	const createRoomExp = Math.round(new Date(exp).getTime() / 1000);
+	const createRoomNbf = Math.round(new Date(nbf).getTime() / 1000);
+	const updateRoomExp = Math.round(new Date(exp_u).getTime() / 1000);
+	const updateRoomNbf = Math.round(new Date(nbf_u).getTime() / 1000);
+
+	//ButtonStyles
+	const createButtonStyle = {
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '100%',
+		height: 36,
+		marginTop: 12,
+		padding: 4,
+		borderRadius: createRounding,
+		backgroundColor: createBackgroundColor,
+		borderColor: createBorderColor,
+		borderWidth: 2,
+			};
+
+	const updateButtonStyle = {
+				alignItems: 'center',
+				justifyContent: 'center',
+				width: '100%',
+				height: 36,
+				marginTop: 12,
+				padding: 4,
+				borderRadius: updateRounding,
+				backgroundColor: updateBackgroundColor,
+				borderColor: updateBorderColor,
+				borderWidth: 2,
+					};
+
+		const deleteButtonStyle = {
+						alignItems: 'center',
+						justifyContent: 'center',
+						width: '100%',
+						height: 36,
+						marginTop: 12,
+						padding: 4,
+						borderRadius: deleteRounding,
+						backgroundColor: deleteBackgroundColor,
+						borderColor: deleteBorderColor,
+						borderWidth: 2,
+							};
+
+		const meetingTokenStyle = {
+								alignItems: 'center',
+								justifyContent: 'center',
+								width: '100%',
+								height: 36,
+								marginTop: 12,
+								padding: 4,
+								borderRadius: tokenRounding,
+								backgroundColor: tokenBackgroundColor,
+								borderColor: tokenBorderColor,
+								borderWidth: 2,
+									};
+
+		
 
 
 //starting the button onPress functions
@@ -91,6 +173,8 @@ const DailyVideoChat = (props) => {
 			enable_network_ui: false,
 			enable_new_call_ui: true,
 			enable_prejoin_ui: enable_prejoin_ui,
+			exp: createRoomExp,
+			nbf: createRoomNbf,
 			enable_screenshare: false,
 			enable_chat: enable_chat,
 			owner_only_broadcast: owner_only_broadcast,
@@ -192,6 +276,8 @@ const DailyVideoChat = (props) => {
 			enable_screenshare: false,
 			enable_chat: enable_chat_u,
 			owner_only_broadcast: owner_only_broadcast_u,
+			exp: updateRoomExp,
+			nbf: updateRoomNbf,
 			enable_knocking: enable_knocking_u,
 			start_video_off: start_video_off_u,
 			start_audio_off: start_audio_off_u,
@@ -251,7 +337,7 @@ const DailyVideoChat = (props) => {
 										supportiveText:supportiveText,
 									},
 							});
-							 if (token){
+							 if (token && videoCall.enabled){
 								callFrame.join({
 										url: url,
 										token: token,
@@ -259,7 +345,7 @@ const DailyVideoChat = (props) => {
 										activeSpeakerMode: false,
 								})
 							};
-								if (!token){
+								if (!token && videoCall.enabled){
 									callFrame.join({
 											url: url,
 											showLeaveButton: true,
@@ -275,10 +361,10 @@ const DailyVideoChat = (props) => {
             src={videoImage}
             style={{ display: videoCall.enabled ? "block" : "none", objectFit: 'fill', width: '100%', height: '100%', padding: 0 }}
           />
-										<div style={{display: createRoomButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button}><Text style={styles.text}>Create Room</Text></TouchableOpacity></div>
-										<div style={{display: deleteRoomButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button}><Text style={styles.text}>Delete Room</Text></TouchableOpacity></div>
-										<div style={{display: updateRoomSettingsButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button}><Text style={styles.text}>Update Room</Text></TouchableOpacity></div>
-										<div style={{display: createMeetingTokenButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button}><Text style={styles.text}>Create Meeting Token</Text></TouchableOpacity></div>
+										<div style={{display: createRoomButton.enabled ? "block" : "none" }}><TouchableOpacity style={createButtonStyle}><Text style={createRoomButton.styles.createText}>{createText}</Text></TouchableOpacity></div>
+										<div style={{display: deleteRoomButton.enabled ? "block" : "none" }}><TouchableOpacity style={deleteButtonStyle}><Text style={deleteRoomButton.styles.deleteText}>{deleteText}</Text></TouchableOpacity></div>
+										<div style={{display: updateRoomSettingsButton.enabled ? "block" : "none" }}><TouchableOpacity style={updateButtonStyle}><Text style={updateRoomSettingsButton.styles.updateText}>{updateText}</Text></TouchableOpacity></div>
+										<div style={{display: createMeetingTokenButton.enabled ? "block" : "none" }}><TouchableOpacity style={meetingTokenStyle}><Text style={createMeetingTokenButton.styles.tokenText}>{tokenText}</Text></TouchableOpacity></div>
 				</View>
 		)
 	};
@@ -287,10 +373,10 @@ const DailyVideoChat = (props) => {
 	return(
 		 <View style={styles.container}>
         <div class="daily-call-element" style={{ display: videoCall.enabled ? "block" : "none", width: '100%', height: '100%', padding: 0}}> {JoinCall()} </div> 
-							<div style={{display: createRoomButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button} onPress={createRoomAction}><Text style={styles.text}>Create Room</Text></TouchableOpacity></div>	
-							<div style={{display: deleteRoomButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button} onPress={deleteRoomAction}><Text style={styles.text}>Delete Room</Text></TouchableOpacity></div>
-							<div style={{display: updateRoomSettingsButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button} onPress={updateRoomAction}><Text style={styles.text}>Update Room</Text></TouchableOpacity></div>
-							<div style={{display: createMeetingTokenButton.enabled ? "block" : "none" }}><TouchableOpacity style={styles.button} onPress={meetingTokenAction}><Text style={styles.text}>Create Meeting Token</Text></TouchableOpacity></div>
+							<div style={{display: createRoomButton.enabled ? "block" : "none" }}><TouchableOpacity style={createButtonStyle} onPress={createRoomAction}><Text style={createRoomButton.styles.createText}> {createText}</Text></TouchableOpacity></div>	
+							<div style={{display: deleteRoomButton.enabled ? "block" : "none" }}><TouchableOpacity style={deleteButtonStyle} onPress={deleteRoomAction}><Text style={deleteRoomButton.styles.deleteText}>{deleteText}</Text></TouchableOpacity></div>
+							<div style={{display: updateRoomSettingsButton.enabled ? "block" : "none" }}><TouchableOpacity style={updateButtonStyle} onPress={updateRoomAction}><Text style={updateRoomSettingsButton.styles.updateText}>{updateText}</Text></TouchableOpacity></div>
+							<div style={{display: createMeetingTokenButton.enabled ? "block" : "none" }}><TouchableOpacity style={meetingTokenStyle} onPress={meetingTokenAction}><Text style={createMeetingTokenButton.styles.tokenText}>{tokenText}</Text></TouchableOpacity></div>
 		</View> 
 	) }
 };
@@ -307,24 +393,23 @@ const styles = StyleSheet.create({
 		width: '100%',
 		height: '100%',
 },
-	button: {
-			alignItems: 'center',
-			justifyContent: 'center',
-			paddingVertical: 12,
-			paddingHorizontal: 32,
-			marginVertical: 8,
-			marginHorizontal: 16,
-			borderRadius: 4,
-			elevation: 3,
-			backgroundColor: 'black',
-	},
+button: {
+	alignItems: 'center',
+	justifyContent: 'center',
+	width: '100%',
+	height: 36,
+	marginTop: 0,
+	padding: 4,
+	borderRadius: 4,
+	backgroundColor: 'black',
+},
 	text:{
-			fontSize: 16,
-			lineHeight: 21,
-			fontWeight: 'bold',
-			letterSpacing: 0.25,
-			color: 'white',
-	}
+		fontSize: "@body",
+		lineHeight: 21,
+		fontWeight: 'bold',
+		letterSpacing: 0.25,
+		color: 'white',
+}
 })
 
 export default DailyVideoChat

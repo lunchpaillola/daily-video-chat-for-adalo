@@ -39,18 +39,39 @@
           "helpText": "Optionally enter a meeting token to configure the video session on a per-user basis."
         },
         {
+          "name": "leftMeeting",
+          "displayName": "Actions after participant leaves the meeting",
+          "type": "action"
+        },
+        {
+          "name": "joinedMeeting",
+          "displayName": "Actions after the participant joins the meeting" ,
+          "type": "action"
+        },
+        {
+          "name": "modifyRoomColors",
+          "displayName": "Show video room colors",
+          "type": "boolean",
+          "default": false
+      },
+       {
           "name": "accent",
           "displayName": "Accent",
           "type": "color",
           "default": "#1BEBB9",
+          "enabled": {
+            "modifyRoomColors": true
+          },
           "helpText": "Main theme color. Used for primary actions and keyboard focus."
-          
         },
         {
           "name": "accentText",
           "displayName": "Accent text",
           "type": "color",
           "default": "#121A24",
+          "enabled": {
+            "modifyRoomColors": true
+          },
           "helpText": "Text color rendered on accent."
         },
         {
@@ -58,6 +79,9 @@
           "displayName": "Background",
           "type": "color",
           "default": "#FFFFFF",
+          "enabled": {
+            "modifyRoomColors": true
+          },
           "helpText": "Background color."
         },
         {
@@ -65,6 +89,9 @@
           "displayName": "Background accent",
           "type": "color",
           "default": "#EFF3F5",
+          "enabled": {
+            "modifyRoomColors": true
+          },
           "helpText": "Background color for highlighted elements."
         },
         {
@@ -72,6 +99,9 @@
           "displayName": "baseText",
           "default": "#121A24",
           "type": "color",
+          "enabled": {
+            "modifyRoomColors": true
+          },
           "helpText": "Default text and icon color, as rendered on background or backgroundAccent."
         },
         {
@@ -79,6 +109,9 @@
           "displayName": "Border",
           "default": "#C8D1DC",
           "type": "color",
+          "enabled": {
+            "modifyRoomColors": true
+          },
           "helpText": "Default border color for bordered elements."
         },
         {
@@ -86,6 +119,9 @@
           "displayName": "Main area background",
           "default": "#121A24",
           "type": "color",
+          "enabled": {
+            "modifyRoomColors": true
+          },
           "helpText": "Background color for the main call area."
         },
         {
@@ -93,6 +129,9 @@
           "displayName": "Main area background accent",
           "default": "#2B3F56",
           "type": "color",
+          "enabled": {
+            "modifyRoomColors": true
+          },
           "helpText": "Background color for video tiles."
         },
         {
@@ -100,6 +139,9 @@
           "displayName": "Main area text",
           "default": "#FFFFFF",
           "type": "color",
+          "enabled": {
+            "modifyRoomColors": true
+          },
           "helpText": "Text color for text rendered inside the call main area, e.g. names."
         },
         {
@@ -107,17 +149,10 @@
           "displayName": "Supportive text",
           "default": "#6B7785",
           "type": "color",
+          "enabled": {
+            "modifyRoomColors": true
+          },
           "helpText": "Text color for supportive, less emphasized, text."
-        },
-        {
-          "name": "leftMeeting",
-          "displayName": "Actions after participant leaves the meeting",
-          "type": "action"
-        },
-        {
-          "name": "joinedMeeting",
-          "displayName": "Actions after the participant joins the meeting",
-          "type": "action"
         }
       ]
     },
@@ -136,6 +171,18 @@
         "type": "text",
         "default": "public",
 				 "helpText": "Determines who can access the room.  Options are public and private"
+      },
+      {
+        "name": "nbf",
+				"displayName": "Not before time",
+        "type": "date",
+				 "helpText": "Users cannot join a meeting in this room before this time. If not set, the user will be able to join a room as soon as it is created."
+      },
+      {
+        "name": "exp",
+				 "displayName": "Expiration time",
+        "type": "date",
+				 "helpText": "Users cannot join a meeting in this room after this time. If not set, the room will never expire."
       },
       {
         "name": "enable_prejoin_ui",
@@ -179,6 +226,59 @@
         "default": false,
 				 "helpText": "When participants first join a meeting, keep their microphone muted. This property can be overridden by a meeting token."
       },
+        {
+						"name": "editCreateRoomButton",
+            "displayName": "Show button styles",
+            "type": "boolean",
+            "default": false
+        },
+        {
+          "name": "createText",
+          "displayName": "Button text",
+          "type": "text",
+					"default": "Create room",
+          "helpText": "The text that displays on the button",
+          "enabled": {
+            "editCreateRoomButton": true
+          },
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": 600,
+            "color": "@contrast:createBackgroundColor"
+          }
+        },
+       {
+          "name": "createBackgroundColor",
+          "displayName": "Button color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "editCreateRoomButton": true
+          },
+          "helpText": "The button color"
+          
+        },
+        {
+          "name": "createBorderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "editCreateRoomButton": true
+          },
+          "helpText": "The border color"
+        },
+        {
+          "name": "createRounding",
+          "displayName": "Create Room button rounding",
+          "type": "number",
+          "default": 4,
+          "enabled": {
+            "editCreateRoomButton": true
+          },
+          "control": { "type": "slider", "max": 20, "min": 0 },
+          "helpText": "Button rounding"
+        },
       {
         "name": "roomCreated",
         "displayName": "Additional actions after a room is created",
@@ -186,7 +286,7 @@
         "arguments": [
           {
             "type": "text",
-							"name": "name",
+						"name": "name",
             "displayName": "name"
           },
           {
@@ -276,6 +376,56 @@
 				 "helpText": "When a participants first join a meeting, keep their microphone muted. Setting this on a meeting token overrides the setting on the room."
       },
       {
+        "name": "editMeetingToken",
+        "displayName": "Show button styles",
+        "type": "boolean",
+        "default": false
+    },
+    {
+      "name": "tokenText",
+      "displayName": "Button text",
+      "type": "text",
+      "default": "Create meeting token",
+      "helpText": "The text that displays on the button",
+      "enabled": {
+        "editMeetingToken": true
+      },
+      "styles": {
+        "fontFamily": "@body",
+        "fontWeight": 600,
+        "color": "@contrast:tokenBackgroundColor"
+      }
+    },
+   {
+      "name": "tokenBackgroundColor",
+      "displayName": "Button color",
+      "type": "color",
+      "default": "@primary",
+      "enabled": {
+        "editMeetingToken": true
+      }
+      
+    },
+    {
+      "name": "tokenBorderColor",
+      "displayName": "Border Color",
+      "type": "color",
+      "default": "@primary",
+      "enabled": {
+        "editMeetingToken": true
+      }
+    },
+    {
+      "name": "tokenRounding",
+      "displayName": "Button rounding",
+      "type": "number",
+      "default": 4,
+      "enabled": {
+        "editMeetingToken": true
+      },
+      "control": { "type": "slider", "max": 20, "min": 0 }
+    },
+      {
         "name": "meeting_token_created",
         "displayName": "Additional actions after a meeting token is created.",
         "type": "action",
@@ -302,6 +452,54 @@
 				 "displayName": "Room Name",
         "type": "text",
 				 "helpText": "The name of the room that will be deleted."
+      },
+      {
+        "name": "editDeleteButton",
+        "displayName": "Show button styles",
+        "type": "boolean",
+        "default": false
+    },
+      {
+        "name": "deleteText",
+        "displayName": "Button text",
+        "type": "text",
+        "default": "Delete room",
+        "enabled": {
+          "editDeleteButton": true
+        },
+       "styles": {
+          "fontFamily": "@body",
+          "fontWeight": 600,
+          "color": "@contrast:deleteBackgroundColor"
+        }
+      },
+     {
+        "name": "deleteBackgroundColor",
+        "displayName": "Button color",
+        "type": "color",
+        "enabled": {
+          "editDeleteButton": true
+        },
+        "default": "@primary"
+      },
+      {
+        "name": "deleteBorderColor",
+        "displayName": "Border Color",
+        "type": "color",
+        "enabled": {
+          "editDeleteButton": true
+        },
+        "default": "@primary"
+      },
+      {
+        "name": "deleteRounding",
+        "displayName": "Button rounding",
+        "type": "number",
+        "default": 4,
+        "enabled": {
+          "editDeleteButton": true
+        },
+        "control": { "type": "slider", "max": 20, "min": 0 }
       },
       {
         "name": "room_deleted",
@@ -331,6 +529,18 @@
         "type": "text",
         "default": "public",
 				 "helpText": "Determines who can access the room.  Options are public and private."
+        },
+        {
+          "name": "nbf_u",
+           "displayName": "Not before time",
+          "type": "date",
+           "helpText": "Users cannot join a meeting in this room before this time. If not set, the user will be able to join a room as soon as it is created."
+        },
+        {
+          "name": "exp_u",
+           "displayName": "Expiration time",
+          "type": "date",
+           "helpText": "Users cannot join a meeting in this room after this time. If not set, the room will never expire."
         },
         {
         "name": "enable_chat_u",
@@ -367,6 +577,56 @@
         "default": false,
 				 "helpText": "When participants first join a meeting, keep their microphone muted. This property can be overridden by a meeting token."
         },
+        {
+          "name": "updateRoomStyle",
+          "displayName": "Show button styles",
+          "type": "boolean",
+          "default": false
+      },
+      {
+        "name": "updateText",
+        "displayName": "Button text",
+        "type": "text",
+        "default": "Update room",
+        "helpText": "The text that displays on the button",
+        "enabled": {
+          "updateRoomStyle": true
+        },
+        "styles": {
+          "fontFamily": "@body",
+          "fontWeight": 600,
+          "color": "@contrast:updateBackgroundColor"
+        }
+      },
+     {
+        "name": "updateBackgroundColor",
+        "displayName": "Button color",
+        "type": "color",
+        "default": "@primary",
+        "enabled": {
+          "updateRoomStyle": true
+        }
+        
+      },
+      {
+        "name": "updateBorderColor",
+        "displayName": "Border Color",
+        "type": "color",
+        "default": "@primary",
+        "enabled": {
+          "updateRoomStyle": true
+        }
+      },
+      {
+        "name": "updateRounding",
+        "displayName": "Button rounding",
+        "type": "number",
+        "default": 4,
+        "enabled": {
+          "updateRoomStyle": true
+        },
+        "control": { "type": "slider", "max": 20, "min": 0 }
+      },
         {
         "name": "roomUpdated",
         "displayName": "Additional actions after a room is updated.",

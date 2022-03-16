@@ -1,17 +1,17 @@
 {
   "name": "daily-video-chat",
-  "description": "",
-  "version": "1.0.0",
+  "description": "An Adalo component for creating and managing video chats with Daily.co",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "ISC",
-  "author": "",
+  "author": "Daily.co",
   "scripts": {
     "start": "adalo dev",
     "login": "adalo login",
     "publish": "adalo publish"
   },
   "adalo": {
-    "logo": "./example-logo.png",
+    "logo": "./logo.png",
     "displayName": "Daily Video Chat",
     "components": [
       {
